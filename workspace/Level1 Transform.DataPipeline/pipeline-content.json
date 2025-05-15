@@ -67,7 +67,7 @@
           }
         },
         "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
         }
       },
       {
@@ -93,7 +93,7 @@
             "value": "@pipeline().parameters.ComputeName",
             "type": "Expression"
           },
-          "workspaceId": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec",
+          "workspaceId": "6db55d91-3d30-4353-bbeb-0dac1badad8b",
           "parameters": {
             "L1TransformInstanceID": {
               "value": {
@@ -328,7 +328,7 @@
           }
         },
         "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
         }
       },
       {
@@ -461,7 +461,7 @@
               "database": "controlDB"
             },
             "externalReferences": {
-              "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+              "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
             }
           }
         }
@@ -712,7 +712,7 @@
                 }
               },
               "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
               }
             }
           ]
@@ -768,7 +768,7 @@
           }
         },
         "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
         }
       },
       {
@@ -883,11 +883,11 @@
       },
       "SilverObjectID": {
         "type": "string",
-        "defaultValue": "cc80a0ab-603d-4df9-bdfc-c35a7e8ab095"
+        "defaultValue": "2987f99a-68e4-43af-9366-01eaebfbe67b"
       },
       "SilverWorkspaceID": {
         "type": "string",
-        "defaultValue": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec"
+        "defaultValue": "6db55d91-3d30-4353-bbeb-0dac1badad8b"
       }
     },
     "variables": {

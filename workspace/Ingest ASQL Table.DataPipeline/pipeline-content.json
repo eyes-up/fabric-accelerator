@@ -20,8 +20,8 @@
           "secureInput": false
         },
         "typeProperties": {
-          "storedProcedureName": "[ELT].[InsertIngestInstance]",
           "database": "controlDB",
+          "storedProcedureName": "[ELT].[InsertIngestInstance]",
           "storedProcedureParameters": {
             "ADFPipelineRunID": {
               "value": {
@@ -66,9 +66,6 @@
               "type": "Boolean"
             }
           }
-        },
-        "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
         }
       },
       {
@@ -119,10 +116,10 @@
               "type": "AzureSqlTable",
               "schema": [],
               "typeProperties": {
-                "database": "WideWorldImporters"
+                "database": "Source"
               },
               "externalReferences": {
-                "connection": "a0a57e51-5032-4e46-b0f0-493c9d2f51c9"
+                "connection": "307dc834-095e-45ac-87c9-44b138a79a17"
               }
             }
           },
@@ -237,9 +234,12 @@
           "secureOutput": false,
           "secureInput": false
         },
+        "externalReferences": {
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+        },
         "typeProperties": {
-          "storedProcedureName": "[ELT].[UpdateIngestInstance]",
           "database": "controlDB",
+          "storedProcedureName": "[ELT].[UpdateIngestInstance]",
           "storedProcedureParameters": {
             "ADFIngestPipelineRunID": {
               "value": {
@@ -288,9 +288,6 @@
               "type": "Int32"
             }
           }
-        },
-        "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
         }
       },
       {
@@ -311,9 +308,12 @@
           "secureOutput": false,
           "secureInput": false
         },
+        "externalReferences": {
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+        },
         "typeProperties": {
-          "storedProcedureName": "[ELT].[UpdateIngestInstance]",
           "database": "controlDB",
+          "storedProcedureName": "[ELT].[UpdateIngestInstance]",
           "storedProcedureParameters": {
             "ADFIngestPipelineRunID": {
               "value": {
@@ -334,9 +334,6 @@
               "type": "Boolean"
             }
           }
-        },
-        "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
         }
       },
       {
@@ -363,9 +360,12 @@
           "secureOutput": false,
           "secureInput": false
         },
+        "externalReferences": {
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+        },
         "typeProperties": {
+          "database": "controlDB",
           "source": {
-            "type": "AzureSqlSource",
             "sqlReaderStoredProcedureName": "[ELT].[GetTransformDefinition_L1]",
             "storedProcedureParameters": {
               "IngestID": {
@@ -379,18 +379,7 @@
             "queryTimeout": "02:00:00",
             "partitionOption": "None"
           },
-          "firstRowOnly": false,
-          "datasetSettings": {
-            "annotations": [],
-            "type": "AzureSqlTable",
-            "schema": [],
-            "typeProperties": {
-              "database": "controlDB"
-            },
-            "externalReferences": {
-              "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
-            }
-          }
+          "firstRowOnly": false
         }
       },
       {
@@ -422,9 +411,12 @@
                 "secureOutput": false,
                 "secureInput": false
               },
+              "externalReferences": {
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+              },
               "typeProperties": {
-                "storedProcedureName": "[ELT].[InsertTransformInstance_L1]",
                 "database": "controlDB",
+                "storedProcedureName": "[ELT].[InsertTransformInstance_L1]",
                 "storedProcedureParameters": {
                   "CustomParameters": {
                     "value": {
@@ -581,9 +573,6 @@
                     "type": "String"
                   }
                 }
-              },
-              "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
               }
             }
           ]
@@ -607,9 +596,12 @@
           "secureOutput": false,
           "secureInput": false
         },
+        "externalReferences": {
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+        },
         "typeProperties": {
+          "database": "controlDB",
           "source": {
-            "type": "AzureSqlSource",
             "sqlReaderStoredProcedureName": "[ELT].[GetTransformDefinition_L2]",
             "storedProcedureParameters": {
               "IngestID": {
@@ -623,18 +615,7 @@
             "queryTimeout": "02:00:00",
             "partitionOption": "None"
           },
-          "firstRowOnly": false,
-          "datasetSettings": {
-            "annotations": [],
-            "type": "AzureSqlTable",
-            "schema": [],
-            "typeProperties": {
-              "database": "controlDB"
-            },
-            "externalReferences": {
-              "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
-            }
-          }
+          "firstRowOnly": false
         }
       },
       {
@@ -666,9 +647,12 @@
                 "secureOutput": false,
                 "secureInput": false
               },
+              "externalReferences": {
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+              },
               "typeProperties": {
-                "storedProcedureName": "[ELT].[InsertTransformInstance_L2]",
                 "database": "controlDB",
+                "storedProcedureName": "[ELT].[InsertTransformInstance_L2]",
                 "storedProcedureParameters": {
                   "CustomParameters": {
                     "value": {
@@ -881,9 +865,6 @@
                     "type": "String"
                   }
                 }
-              },
-              "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
               }
             }
           ]
@@ -907,9 +888,12 @@
           "secureOutput": false,
           "secureInput": false
         },
+        "externalReferences": {
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
+        },
         "typeProperties": {
-          "storedProcedureName": "[ELT].[UpdateIngestDefinition]",
           "database": "controlDB",
+          "storedProcedureName": "[ELT].[UpdateIngestDefinition]",
           "storedProcedureParameters": {
             "IngestID": {
               "value": {
@@ -937,9 +921,6 @@
               "type": "Boolean"
             }
           }
-        },
-        "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
         }
       }
     ],
@@ -1057,7 +1038,7 @@
       },
       "BronzeWorkspaceID": {
         "type": "string",
-        "defaultValue": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec"
+        "defaultValue": "6db55d91-3d30-4353-bbeb-0dac1badad8b"
       }
     },
     "variables": {

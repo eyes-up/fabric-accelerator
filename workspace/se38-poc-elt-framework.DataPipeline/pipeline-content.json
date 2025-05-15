@@ -2,7 +2,7 @@
   "properties": {
     "activities": [
       {
-        "name": "WWI_Ingest_Definition",
+        "name": "SE38_Ingest_Definition",
         "type": "Copy",
         "dependsOn": [],
         "policy": {
@@ -15,7 +15,7 @@
         "typeProperties": {
           "source": {
             "type": "AzureSqlSource",
-            "sqlReaderQuery": "select \n\t'WWI' as [SourceSystemName]\n\t, t.name as [StreamName]\n\t,'Wide World Importers' as [SourceSystemDescription]\n\t,'Azure SQL' as [Backend]\n\t,(s.name + '.' + t.name) as [EntityName]\n\t, c.name as [DeltaName]\n\t, (CASE WHEN c.name is not null then cast('2013-01-01' as datetime)\n\t\tELSE cast('1900-01-01' as datetime)\n\t END) as [LastDeltaDate]\n    , (CASE WHEN c.name is not null then 129600 --90days\n\t\tELSE NULL\n\t END)  as [MaxIntervalMinutes]\n\t,'Files' as [DestinationRawFileSystem]\n    ,'raw_bronze/wwi/'+ s.name +'/'+  t.name +'/YYYY-MM' as [DestinationRawFolder]\n    ,s.name +'_'+ t.name + '_'+ 'YYYY-MM-DD_HHMISS.parquet' as [DestinationRawFile]\n    ,3 as [MaxRetries]\n    ,cast(1 as bit) as [ActiveFlag]\n    ,cast(1 as bit) as [L1TransformationReqdFlag]\n    ,cast(1 as bit) as [L2TransformationReqdFlag]\n    ,cast(0 as bit) as [DelayL1TransformationFlag]\nfrom sys.tables as t\ninner join sys.schemas as s\n\ton s.schema_id = t.schema_id\n\tand s.name in ('Application','Purchasing','Sales','Warehouse')\nleft join sys.columns as c\n\ton c.object_id = t.object_id\n\tand c.name='LastEditedWhen'",
+            "sqlReaderQuery": "select 'se38' as [SourceSystemName], t.name as [StreamName], 'RogueHire Coaching Data' as [SourceSystemDescription], 'Azure SQL' as [Backend], (s.name + '.' + t.name) as [EntityName], c.name as [DeltaName], (CASE WHEN c.name is not null THEN cast('2013-01-01' as datetime) ELSE cast('1900-01-01' as datetime) END) as [LastDeltaDate], (CASE WHEN c.name is not null THEN 129600 ELSE NULL END) as [MaxIntervalMinutes], 'Files' as [DestinationRawFileSystem], 'raw_bronze/se38/' + s.name + '/' + t.name + '/YYYY-MM' as [DestinationRawFolder], s.name + '_' + t.name + '_' + 'YYYY-MM-DD_HHMISS.parquet' as [DestinationRawFile], 3 as [MaxRetries], cast(1 as bit) as [ActiveFlag], cast(1 as bit) as [L1TransformationReqdFlag], cast(1 as bit) as [L2TransformationReqdFlag], cast(0 as bit) as [DelayL1TransformationFlag] from sys.tables as t inner join sys.schemas as s on s.schema_id = t.schema_id and (s.name IN ('KeyWords','Master_Requisitions','Master_Applications','Scorecard','vw_Org_DepartmentName','vw_SourceFiles','vw_Organizations','vw_Recruiters') OR (s.name like 'vw__Org__Job%' or s.name like 'Job__Families__Map%')) left join sys.columns as c on c.object_id = t.object_id and c.name='LastEditedWhen'",
             "queryTimeout": "02:00:00",
             "partitionOption": "None",
             "datasetSettings": {
@@ -23,10 +23,10 @@
               "type": "AzureSqlTable",
               "schema": [],
               "typeProperties": {
-                "database": "WideWorldImporters"
+                "database": "rsse38db"
               },
               "externalReferences": {
-                "connection": "a0a57e51-5032-4e46-b0f0-493c9d2f51c9"
+                "connection": "307dc834-095e-45ac-87c9-44b138a79a17"
               }
             }
           },
@@ -52,7 +52,7 @@
                 "database": "controlDB"
               },
               "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
               }
             }
           },
@@ -265,11 +265,11 @@
         }
       },
       {
-        "name": "WWI_L1T_Definition",
+        "name": "SE38_L1T_Definition",
         "type": "Copy",
         "dependsOn": [
           {
-            "activity": "WWI_Ingest_Definition",
+            "activity": "SE38_Ingest_Definition",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -285,7 +285,7 @@
         "typeProperties": {
           "source": {
             "type": "AzureSqlSource",
-            "sqlReaderQuery": "select i.IngestID\n,'L1Transform-Generic-Fabric' as [NotebookName]\n, i.DestinationRawFileSystem as [InputRawFileSystem]\n, i.DestinationRawFolder as [InputRawFileFolder]\n, i.DestinationRawFile as [InputRawFile]\n, 'Not Applicable' as [OutputL1CurateFileSystem]\n, 'Not Applicable' as [OutputL1CuratedFolder]\n, 'Not Applicable' as [OutputL1CuratedFile]\n,i.WatermarkColName\n, 'silver.'+ replace(lower(i.EntityName),'.','_') as [OutputDWTable]\n,'overwrite' as [OutputDWTableWriteMode]\n,3 as [MaxRetries]\n,cast(1 as bit) as [ActiveFlag]\nfrom elt.IngestDefinition as i\nwhere i.SourceSystemName='WWI'",
+            "sqlReaderQuery": "select i.IngestID, 'L1Transform-Generic-Fabric' as [NotebookName], i.DestinationRawFileSystem as [InputRawFileSystem], i.DestinationRawFolder as [InputRawFileFolder], i.DestinationRawFile as [InputRawFile], 'Not Applicable' as [OutputL1CurateFileSystem], 'Not Applicable' as [OutputL1CuratedFolder], 'Not Applicable' as [OutputL1CuratedFile], i.WatermarkColName, 'silver.' + replace(lower(i.EntityName),'.','_') as [OutputDWTable], 'overwrite' as [OutputDWTableWriteMode], 3 as [MaxRetries], cast(1 as bit) as [ActiveFlag] from elt.IngestDefinition as i where i.SourceSystemName='SE38'",
             "queryTimeout": "02:00:00",
             "partitionOption": "None",
             "datasetSettings": {
@@ -296,7 +296,7 @@
                 "database": "controlDB"
               },
               "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
               }
             }
           },
@@ -324,7 +324,7 @@
                 "database": "controlDB"
               },
               "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
               }
             }
           },
@@ -505,11 +505,11 @@
         }
       },
       {
-        "name": "Get WWI PK cols",
+        "name": "Get SE38 PK cols",
         "type": "Lookup",
         "dependsOn": [
           {
-            "activity": "WWI_L1T_Definition",
+            "activity": "SE38_L1T_Definition",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -525,7 +525,7 @@
         "typeProperties": {
           "source": {
             "type": "AzureSqlSource",
-            "sqlReaderQuery": "SELECT lower(Tab.Table_Schema + '_' +  Tab.Table_Name) as [OutputDWTable]\n, STRING_AGG(Col.Column_Name,'|') as [LookupColumns]\n, 'append' as [OutputDWTableWriteMode]\nfrom \n    INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab, \n    INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE Col \nWHERE \n    Col.Constraint_Name = Tab.Constraint_Name\n    AND Col.Table_Name = Tab.Table_Name\n    AND Tab.Constraint_Type = 'PRIMARY KEY'\nGROUP BY lower(Tab.Table_Schema + '_' +  Tab.Table_Name)",
+            "sqlReaderQuery": "SELECT lower(Tab.Table_Schema + '_' + Tab.Table_Name) as [OutputDWTable], STRING_AGG(Col.Column_Name,'|') as [LookupColumns], 'append' as [OutputDWTableWriteMode] from INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab, INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE Col WHERE Col.Constraint_Name = Tab.Constraint_Name AND Col.Table_Name = Tab.Table_Name AND Tab.Constraint_Type = 'PRIMARY KEY' GROUP BY lower(Tab.Table_Schema + '_' + Tab.Table_Name)",
             "queryTimeout": "02:00:00",
             "partitionOption": "None"
           },
@@ -535,10 +535,10 @@
             "type": "AzureSqlTable",
             "schema": [],
             "typeProperties": {
-              "database": "WideWorldImporters"
+              "database": "rsse38db"
             },
             "externalReferences": {
-              "connection": "a0a57e51-5032-4e46-b0f0-493c9d2f51c9"
+              "connection": "307dc834-095e-45ac-87c9-44b138a79a17"
             }
           }
         }
@@ -548,7 +548,7 @@
         "type": "ForEach",
         "dependsOn": [
           {
-            "activity": "Get WWI PK cols",
+            "activity": "Get SE38 PK cols",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -562,13 +562,13 @@
         ],
         "typeProperties": {
           "items": {
-            "value": "@activity('Get WWI PK cols').output.value",
+            "value": "@activity('Get SE38 PK cols').output.value",
             "type": "Expression"
           },
           "isSequential": true,
           "activities": [
             {
-              "name": "Update WWI L1T",
+              "name": "Update SE38 L1T",
               "type": "Script",
               "dependsOn": [],
               "policy": {
@@ -612,7 +612,7 @@
                     ],
                     "type": "NonQuery",
                     "text": {
-                      "value": "UPDATE [ELT].[L1TransformDefinition]\nSET LookupColumns = @lookupColumns\n, OutputDWTableWriteMode = @writemode\nWHERE [OutputDWTable]= 'silver.'+ @dwtable",
+                      "value": "UPDATE [ELT].[L1TransformDefinition] SET LookupColumns = @lookupColumns, OutputDWTableWriteMode = @writemode WHERE [OutputDWTable]= 'silver.'+ @dwtable",
                       "type": "Expression"
                     }
                   }
@@ -620,7 +620,7 @@
                 "database": "controlDB"
               },
               "externalReferences": {
-                "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+                "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
               }
             }
           ]
@@ -631,7 +631,7 @@
         "type": "Script",
         "dependsOn": [
           {
-            "activity": "WWI_L1T_Definition",
+            "activity": "SE38_L1T_Definition",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -660,7 +660,7 @@
               ],
               "type": "NonQuery",
               "text": {
-                "value": "Update [ELT].[L1TransformDefinition]\nSet ComputeName = @L1TransformGenericFabric\nwhere ComputeName ='L1Transform-Generic-Fabric'",
+                "value": "Update [ELT].[L1TransformDefinition] Set ComputeName = @L1TransformGenericFabric where ComputeName ='L1Transform-Generic-Fabric'",
                 "type": "Expression"
               }
             }
@@ -669,7 +669,7 @@
           "database": "controlDB"
         },
         "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
         }
       },
       {
@@ -697,7 +697,7 @@
                 {
                   "name": "SourceSystem",
                   "type": "String",
-                  "value": "WWI",
+                  "value": "SE38",
                   "direction": "Input"
                 },
                 {
@@ -709,7 +709,7 @@
               ],
               "type": "NonQuery",
               "text": {
-                "value": "update elt.IngestDefinition\n\nset L2TransformationReqdFlag=1\n\nwhere SourceSystemName = @SourceSystem\n\nand StreamName in ('CustomerTransactions','Orders','PurchaseOrders')\n\n\n\n\nInsert into [ELT].[L2TransformDefinition]\n\t([IngestID]\n\t,[L1TransformID]\n\t,[ComputeName]\n\t,[InputType]\n\t,[InputFileSystem]\n\t,[InputFileFolder]\n\t,[OutputL2CurateFileSystem]\n\t,[OutputL2CuratedFolder]\n\t,[OutputL2CuratedFile]\n\t,[InputDWTable]\n\t,[WatermarkColName]\n\t,[OutputDWTable]\n\t,[OutputDWTableWriteMode]\n\t,[ActiveFlag])\nSelect i.IngestID\n\t,l1.L1TransformID\n\t,'[gold].['+ 'create_'+  lower(i.StreamName) + '_monthly_snapshot]' as [ComputeName]\n\t,'Curated' as [InputType]\n\t, 'Tables' as [InputFileSystem]\n\t, l1.OutputDWTable as [InputFileFolder]\n\t, 'Tables' as [OutputL2CurateFileSystem]\n\t, 'gold' as [OutputL2CuratedFolder]\n\t, lower(i.StreamName + '_monthly_snapshot') as [OutputL2CuratedFile]\n\t,l1.OutputDWTable  as [InputDWTable]\n\t,i.WatermarkColName\n\t,lower('[gold].['+ i.StreamName + '_monthly_snapshot]') as [OutputDWTable]\n\t,'append' as [OutputDWTableWriteMode]\n\t, cast(1 as bit) as [ActiveFlag]\nfrom elt.IngestDefinition as i\n\tinner join elt.L1TransformDefinition as l1\n\t\ton i.IngestID =l1.IngestID\nwhere l1.IngestID in (select IngestID from elt.IngestDefinition\n\t\t\t\t\twhere SourceSystemName = @SourceSystem\n\t\t\t\t\tand StreamName like COALESCE(@StreamName,'%')\n\t\t\t\t\tand L2TransformationReqdFlag=1)\n",
+                "value": "update elt.IngestDefinition set L2TransformationReqdFlag=1 where SourceSystemName = @SourceSystem and StreamName in ('CustomerTransactions','Orders','PurchaseOrders') Insert into [ELT].[L2TransformDefinition] ([IngestID], [L1TransformID], [ComputeName], [InputType], [InputFileSystem], [InputFileFolder], [OutputL2CurateFileSystem], [OutputL2CuratedFolder], [OutputL2CuratedFile], [InputDWTable], [WatermarkColName], [OutputDWTable], [OutputDWTableWriteMode], [ActiveFlag]) Select i.IngestID, l1.L1TransformID, '[gold].['+ 'create_'+ lower(i.StreamName) + '_monthly_snapshot]' as [ComputeName], 'Curated' as [InputType], 'Tables' as [InputFileSystem], l1.OutputDWTable as [InputFileFolder], 'Tables' as [OutputL2CurateFileSystem], 'gold' as [OutputL2CuratedFolder], lower(i.StreamName + '_monthly_snapshot') as [OutputL2CuratedFile], l1.OutputDWTable as [InputDWTable], i.WatermarkColName, lower('[gold].['+ i.StreamName + '_monthly_snapshot]') as [OutputDWTable], 'append' as [OutputDWTableWriteMode], cast(1 as bit) as [ActiveFlag] from elt.IngestDefinition as i inner join elt.L1TransformDefinition as l1 on i.IngestID =l1.IngestID where l1.IngestID in (select IngestID from elt.IngestDefinition where SourceSystemName = @SourceSystem and StreamName like COALESCE(@StreamName,'%') and L2TransformationReqdFlag=1)",
                 "type": "Expression"
               }
             }
@@ -718,7 +718,7 @@
           "database": "controlDB"
         },
         "externalReferences": {
-          "connection": "91ecdff4-3ab7-4bbb-b6e0-682881c0540d"
+          "connection": "23d6a00f-56db-4cab-b89b-3cd6cd6964e9"
         }
       }
     ],
