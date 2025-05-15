@@ -25,9 +25,9 @@
       "name": "dw-gold",
       "type": "FabricOneLakeEvents",
       "properties": {
-        "tenantId": "4e921ed2-9b1c-457c-a917-16ef468eb90a",
+        "tenantId": "3c0f4b2d-1a5e-4b7c-8f9d-6a0e1f2c3b5d",
         "workspaceId": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec",
-        "itemId": "7e2bbf6b-43fb-498c-90e3-56199c8c3b5e",
+        "itemId": "fc030996-0841-47f6-b202-815f45d3d44f",
         "oneLakePaths": [
           "/Tables"
         ],
@@ -64,9 +64,9 @@
       "name": "lh-bronze-storage",
       "type": "FabricOneLakeEvents",
       "properties": {
-        "tenantId": "4e921ed2-9b1c-457c-a917-16ef468eb90a",
+        "tenantId": "3c0f4b2d-1a5e-4b7c-8f9d-6a0e1f2c3b5d",
         "workspaceId": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec",
-        "itemId": "c6c5024f-de55-45ca-a79a-decbe16235e3",
+        "itemId": "2987f99a-68e4-43af-9366-01eaebfbe67b",
         "oneLakePaths": [
           "/Tables",
           "/Files"
@@ -104,9 +104,9 @@
       "name": "lh-silver-storage",
       "type": "FabricOneLakeEvents",
       "properties": {
-        "tenantId": "4e921ed2-9b1c-457c-a917-16ef468eb90a",
+        "tenantId": "3c0f4b2d-1a5e-4b7c-8f9d-6a0e1f2c3b5d",
         "workspaceId": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec",
-        "itemId": "cc80a0ab-603d-4df9-bdfc-c35a7e8ab095",
+        "itemId": "2987f99a-68e4-43af-9366-01eaebfbe67b",
         "oneLakePaths": [
           "/Tables",
           "/Files"

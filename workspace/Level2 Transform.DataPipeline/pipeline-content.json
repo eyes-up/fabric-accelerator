@@ -774,11 +774,11 @@
       },
       "GoldObjectID": {
         "type": "string",
-        "defaultValue": "7e2bbf6b-43fb-498c-90e3-56199c8c3b5e"
+        "defaultValue": "fc030996-0841-47f6-b202-815f45d3d44f"
       },
       "GoldWorkspaceID": {
         "type": "string",
-        "defaultValue": "6db55d91-3d30-4353-bbeb-0dac1badad8b"
+        "defaultValue": "9b76398b-86b2-4e3f-af4b-84c47768a465"
       },
       "GoldDWEndpoint": {
         "type": "string",
