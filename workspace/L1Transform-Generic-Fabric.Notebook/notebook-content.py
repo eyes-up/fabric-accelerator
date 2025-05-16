@@ -9,8 +9,8 @@
 # META   "dependencies": {
 # META     "lakehouse": {
 # META       "default_lakehouse": "2987f99a-68e4-43af-9366-01eaebfbe67b",
-# META       "default_lakehouse_name": "lh_silver",
-# META       "default_lakehouse_workspace_id": "8d8d00a7-0e8a-4e3b-8c0e-8dcafac7adec"
+# META       "default_lakehouse_name": "RogueHire_LH",
+# META       "default_lakehouse_workspace_id": "9b76398b-86b2-4e3f-af4b-84c47768a465"
 # META     }
 # META   }
 # META }
@@ -91,8 +91,8 @@ WatermarkColName = None
 # IngestID = 21
 # CustomParameters = None
 # InputRawFileSystem = 'Files'
-# InputRawFileFolder = 'raw-bronze/wwi/Sales/Orders/2013-01'
-# InputRawFile = 'Sales_Orders_2013-01-01_000000.parquet'
+# InputRawFileFolder = 'bronze/se38/dbo/vw_Organizations/2025-05'
+# InputRawFile = 'dbo_vw_Organizations_2025-05-14_000000.parquet'
 # InputRawFileDelimiter = None
 # InputFileHeaderFlag = None
 # OutputL1CurateFileSystem = None
@@ -102,8 +102,8 @@ WatermarkColName = None
 # OutputL1CuratedFileFormat = None
 # OutputL1CuratedFileWriteMode = None
 # OutputDWStagingTable = None
-# LookupColumns = 'OrderID'
-# OutputDWTable = 'silver.sales_orders'
+# LookupColumns = 'company_id'
+# OutputDWTable = 'silver.dbo_vw_Organizations'
 # OutputDWTableWriteMode = 'append'
 # ReRunL1TransformFlag = None
 # WatermarkColName = 'LastEditedWhen'

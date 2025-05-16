@@ -208,7 +208,7 @@
             "type": "AzureSqlTable",
             "schema": [],
             "typeProperties": {
-              "database": "WideWorldImporters"
+              "database": "rsse38db"
             },
             "externalReferences": {
               "connection": "a0a57e51-5032-4e46-b0f0-493c9d2f51c9"
@@ -931,7 +931,7 @@
       },
       "SourceSystemName": {
         "type": "string",
-        "defaultValue": "WWI"
+        "defaultValue": "se38"
       },
       "StreamName": {
         "type": "string",

@@ -241,7 +241,7 @@
     "parameters": {
       "SourceSystemName": {
         "type": "string",
-        "defaultValue": "WWI"
+        "defaultValue": "se38"
       },
       "StreamName": {
         "type": "string"
